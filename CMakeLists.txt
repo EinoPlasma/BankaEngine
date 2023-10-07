@@ -15,4 +15,4 @@ link_libraries(libEasyX.a libgdi32.a libole32.a)
 
 
 
-add_executable(BankaEngine main.cpp Easyx/include/graphics.h stb_image.h color/RGBA.cpp color/RGBA.h imageLayer/imageLayer.cpp imageLayer/imageLayer.h imageLayer/imageLayers.cpp imageLayer/imageLayers.h)
+add_executable(BankaEngine main.cpp Easyx/include/graphics.h stb_image.h color/RGBA.cpp color/RGBA.h imageLayer/imageLayer.cpp imageLayer/imageLayer.h imageLayer/imageLayers.cpp imageLayer/imageLayers.h imageLayer/imageLayerDrawer.cpp imageLayer/imageLayerDrawer.h imageLayer/imageLayerInfo.cpp imageLayer/imageLayerInfo.h)

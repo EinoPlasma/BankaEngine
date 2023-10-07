@@ -27,34 +27,21 @@ public:
 
     void get_rgba_fast(int x, int y, unsigned char &r, unsigned char &g, unsigned char &b, unsigned char &a);
     void get_rgba_fast2(int x, int y) const;
+    unsigned char get_alpha(int x, int y);
+    unsigned char is_opaque(int x, int y);
+
 
 private:
     std::string name;
+
+
     int w;
     int h;
 
 
 
 };
-/*
-bool load_from_file(const std::string& path, imageLayer *layer, int x=0, int y=0) {
-    int w, h, n;
-    unsigned char *img_data = stbi_load(path.c_str(), &w, &h, &n, 0);
-    if (img_data == nullptr){
-        return false;
-    }
 
-    if (layer == nullptr) {
-        return false;
-    }
 
-    layer = new imageLayer(x, y, w, h, img_data);
-
-    if (layer == nullptr) {
-        return false;
-    }
-
-    return true;
-}*/
-// bool load_from_file(const std::string& path, imageLayer *layer, int x=0, int y=0);
+bool load_from_file(const std::string& path, imageLayer **layer, int x=0, int y=0);
 #endif //BANKAENGINE_IMAGELAYER_H

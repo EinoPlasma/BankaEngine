@@ -5,13 +5,34 @@
 #include "imageLayer.h"
 #include "../stb_image.h"
 
+bool load_from_file(const std::string& path, int x, int y, imageLayer **layer) {
+    int w, h, n;
+    unsigned char *img_data = stbi_load(path.c_str(), &w, &h, &n, 0);
+    if (img_data == nullptr){
+        return false;
+    }
+
+    if (layer == nullptr) {
+        return false;
+    }
+
+    *layer = new imageLayer("cg", x, y, w, h, img_data);
+
+    if (*layer == nullptr) {
+        return false;
+    }
+
+    return true;
+}
+
+
 imageLayer::imageLayer(const std::string &name, int x, int y, int w, int h, unsigned char *img_data) {
     this->x = x;
     this->y = y;
     this->w = w;
     this->h = h;
     this->img_data = img_data;
-    this->
+    this->name = name;
 }
 
 RGBA imageLayer::get_rgba(int x, int y) {
@@ -114,6 +135,32 @@ void imageLayer::set_y(int y) {
 
 std::string imageLayer::get_name() {
     return name;
+}
+
+unsigned char imageLayer::get_alpha(int x, int y) {
+    if(x >= this->x && x < this->x + this->w && y >= this->y && y < this->y + this->h){
+        // 欲求点在图片区域内
+        int local_x, local_y;
+        local_x = x - this->x;
+        local_y = y - this->y;
+        int pixel_index = local_y * this->w + local_x;
+        return img_data[pixel_index*4 + 3];
+    } else {
+        return 0;
+    }
+}
+
+unsigned char imageLayer::is_opaque(int x, int y) {
+    if(x >= this->x && x < this->x + this->w && y >= this->y && y < this->y + this->h){
+        // 欲求点在图片区域内
+        int local_x, local_y;
+        local_x = x - this->x;
+        local_y = y - this->y;
+        int pixel_index = local_y * this->w + local_x;
+        return img_data[pixel_index*4 + 3] == 255;
+    } else {
+        return 0;
+    }
 }
 
 
